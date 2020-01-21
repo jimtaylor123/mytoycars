@@ -10,8 +10,8 @@ $factory->define(Car::class, function (Faker $faker) {
     return [
         'user_id' => factory(User::class),
         'name' => $faker->name,
-        'colour' => $faker->colour,
-        'birthday' => '13/02/1980',
+        'colour' => $faker->colorName,
+        'birthday' => '02/13/1980',
         'photoUrl' => $faker->url,
     ];
 });

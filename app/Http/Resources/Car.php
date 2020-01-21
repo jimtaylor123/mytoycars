@@ -17,6 +17,7 @@ class Car extends JsonResource
         return [
             'data' => [
                 'car_id' => $this->id,
+                'user_id' => $this->user_id,
                 'name' => $this->name,
                 'colour' => $this->colour,
                 'birthday' => $this->birthday->format('m/d/Y'),

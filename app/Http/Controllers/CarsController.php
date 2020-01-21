@@ -18,7 +18,6 @@ class CarsController extends Controller
 
     public function store()
     {
-        // dd(request());
         $this->authorize('create', Car::class);
 
         $car = request()->user()->cars()->create($this->validateData());
@@ -57,12 +56,11 @@ class CarsController extends Controller
 
     private function validateData()
     {
-        // return request()->except('api_token');
         return request()->validate([
             'name' => 'required',
             'colour' => 'required',
             'birthday' => 'required',
-            'photoUrl' => 'required'
+            'user_id' => 'required'
         ]);
     }
 }

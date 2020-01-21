@@ -65,8 +65,8 @@ class CarsTest extends TestCase
 
         $this->assertEquals('Lambourghini Capri', $car->name);
         $this->assertEquals('Navy Blue', $car->colour);
-        $this->assertEquals('13/02/1980', $car->birthday->format('m/d/Y'));
-        $this->assertEquals($this->testUser->id, $car->user_id);
+        $this->assertEquals('02/13/1980', $car->birthday->format('m/d/Y'));
+        $this->assertEquals($this->user->id, $car->user_id);
         $response->assertStatus(Response::HTTP_CREATED);
         $response->assertJson([
             'data' => [
@@ -90,16 +90,6 @@ class CarsTest extends TestCase
                 $this->assertCount(0, Car::all());
             });
     }
-
-    /** @test */
-    // public function photoUrl__must_be_a_valid_email()
-    // {
-    //     $response = $this->post('/api/cars',
-    //         array_merge($this->data(), ['email' => 'NOT AN EMAIL']));
-
-    //     $response->assertSessionHasErrors('email');
-    //     $this->assertCount(0, Car::all());
-    // }
 
     /** @test */
     public function birthdays_are_properly_stored()
@@ -126,7 +116,7 @@ class CarsTest extends TestCase
                 'car_id' => $car->id,
                 'name' => $car->name,
                 'colour' => $car->colour,
-                'birthday' => $car->birthday->format('d/m/Y'),
+                'birthday' => $car->birthday->format('m/d/Y'),
                 'user_id' => $car->user_id,
                 'last_updated' => $car->updated_at->diffForHumans(),
             ]
@@ -157,7 +147,7 @@ class CarsTest extends TestCase
         $this->assertEquals('Lambourghini Capri', $car->name);
         $this->assertEquals('Navy Blue', $car->colour);
         $this->assertEquals('13/02/1980', $car->birthday->format('d/m/Y'));
-        $this->assertEquals('John Smith', $car->user_id);
+        $this->assertEquals( $this->user->id, $car->user_id);
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJson([
             'data' => [
@@ -209,13 +199,12 @@ class CarsTest extends TestCase
 
     private function data()
     {
-        $this->testUser = factory(User::class)->create();
         return [
             'name' => 'Lambourghini Capri',
             'colour' => 'Navy Blue',
-            'birthday' => '13/02/1980',
-            'user_id' => $this->testUser->id,
-            'api_token' => $this->user->api_token,
+            'birthday' => '02/13/1980',
+            'user_id' => $this->user->id,
+            'api_token' => $this->user->api_token
         ];
     }
 }
