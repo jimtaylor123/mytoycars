@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Car;
 use App\Http\Resources\Car as CarResource;
+use App\Services\CarService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CarsController extends Controller
 {
+
     public function index()
     {
         $this->authorize('viewAny', Car::class);
@@ -16,11 +18,12 @@ class CarsController extends Controller
         return CarResource::collection(request()->user()->cars);
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $this->authorize('create', Car::class);
-
         $car = request()->user()->cars()->create($this->validateData());
+
+        if($request->get('image')) CarService::saveImage($request, $car);
 
         return (new CarResource($car))
             ->response()
@@ -59,8 +62,7 @@ class CarsController extends Controller
         return request()->validate([
             'name' => 'required',
             'colour' => 'required',
-            'birthday' => 'required',
-            'user_id' => 'required'
+            'birthday' => 'required'
         ]);
     }
 }
