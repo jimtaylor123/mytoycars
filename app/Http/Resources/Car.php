@@ -21,7 +21,7 @@ class Car extends JsonResource
                 'name' => $this->name,
                 'colour' => $this->colour,
                 'birthday' => $this->birthday->format('m/d/Y'),
-                'photoUrl' => $this->photoUrl,
+                'photoUrl' =>  $this->photoUrl,
                 'last_updated' => $this->updated_at->diffForHumans(),
             ],
             'links' => [

@@ -2276,6 +2276,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CarsCreate",
@@ -2287,7 +2291,7 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         'name': '',
         'colour': '',
-        'photoUrl': '',
+        'image': '',
         'birthday': ''
       },
       errors: null
@@ -2297,12 +2301,27 @@ __webpack_require__.r(__webpack_exports__);
     submitForm: function submitForm() {
       var _this = this;
 
-      console.log('this form', this.form);
+      this.form.image = this.image;
       axios.post('/api/cars', this.form).then(function (response) {
         _this.$router.push(response.data.links.self);
       })["catch"](function (errors) {
         _this.errors = errors.response.data.errors;
       });
+    },
+    onFileSelected: function onFileSelected(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = function (e) {
+        vm.image = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
     }
   }
 });
@@ -2426,6 +2445,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_UserCircle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/UserCircle */ "./resources/js/components/UserCircle.vue");
+//
+//
+//
 //
 //
 //
@@ -21437,6 +21459,7 @@ var render = function() {
       [
         _c("InputField", {
           attrs: {
+            type: "text",
             name: "name",
             label: "Car Name",
             errors: _vm.errors,
@@ -21451,6 +21474,7 @@ var render = function() {
         _vm._v(" "),
         _c("InputField", {
           attrs: {
+            type: "text",
             name: "colour",
             label: "Car Colour",
             errors: _vm.errors,
@@ -21465,20 +21489,7 @@ var render = function() {
         _vm._v(" "),
         _c("InputField", {
           attrs: {
-            name: "photoUrl",
-            label: "Photo Url",
-            errors: _vm.errors,
-            placeholder: "Photo Url"
-          },
-          on: {
-            "update:field": function($event) {
-              _vm.form.photoUrl = $event
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("InputField", {
-          attrs: {
+            type: "text",
             name: "birthday",
             label: "Birthday",
             errors: _vm.errors,
@@ -21489,6 +21500,17 @@ var render = function() {
               _vm.form.birthday = $event
             }
           }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "py-4",
+          attrs: {
+            type: "file",
+            name: "image",
+            label: "image",
+            errors: _vm.errors
+          },
+          on: { change: _vm.onFileSelected }
         }),
         _vm._v(" "),
         _vm._m(0)
@@ -21850,7 +21872,14 @@ var render = function() {
           _vm._v(" "),
           _c("p", { staticClass: "pt-2 text-blue-400" }, [
             _vm._v(_vm._s(_vm.car.birthday))
-          ])
+          ]),
+          _vm._v(" "),
+          _c("img", {
+            attrs: {
+              src:
+                "https://mytoycars.s3.eu-west-2.amazonaws.com/cars/47-1579714723.jpeg"
+            }
+          })
         ])
   ])
 }

@@ -34,6 +34,9 @@
 
             <p class="pt-6 text-gray-600 font-bold uppercase text-sm">Birthday</p>
             <p class="pt-2 text-blue-400">{{ car.birthday }}</p>
+
+            <img src="https://mytoycars.s3.eu-west-2.amazonaws.com/cars/47-1579714723.jpeg">
+
         </div>
 
     </div>
