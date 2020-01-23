@@ -8,32 +8,32 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class BirthdaysTest extends TestCase
+class RacesTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    public function cars_with_birthdays_in_the_current_month_can_be_fetched()
+    public function cars_with_races_in_the_current_month_can_be_fetched()
     {
         $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
-        $birthdayCar = factory(Car::class)->create([
+        $raceCar = factory(Car::class)->create([
             'user_id' => $user->id,
-            'birthday' => now()->subYear(),
+            'race' => now()->subYear(),
         ]);
-        $noBirthdayCar = factory(Car::class)->create([
+        $noRaceCar = factory(Car::class)->create([
             'user_id' => $user->id,
-            'birthday' => now()->subMonth(),
+            'race' => now()->subMonth(),
         ]);
 
-        $this->get('/api/birthdays?api_token=' . $user->api_token)
+        $this->get('/api/races?api_token=' . $user->api_token)
             ->assertJsonCount(1)
             ->assertJson([
                 'data' => [
                     [
                         "data" => [
-                            'car_id' => $birthdayCar->id
+                            'car_id' => $raceCar->id
                         ]
                     ]
                 ]

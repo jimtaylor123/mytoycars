@@ -1932,6 +1932,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2005,7 +2008,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CarsList",
@@ -2054,7 +2056,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InputField",
-  props: ['name', 'label', 'placeholder', 'errors', 'data'],
+  props: ['name', 'label', 'placeholder', 'errors', 'data', 'type'],
   data: function data() {
     return {
       value: ''
@@ -2090,6 +2092,65 @@ __webpack_require__.r(__webpack_exports__);
     data: function data(val) {
       this.value = val;
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RacesList.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RacesList.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _UserCircle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserCircle */ "./resources/js/components/UserCircle.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "RacesList",
+  components: {
+    UserCircle: _UserCircle__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ['endpoint'],
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get(this.endpoint).then(function (response) {
+      _this.races = response.data.data;
+      _this.loading = false;
+    })["catch"](function (error) {
+      _this.loading = false;
+      alert('Unable to fetch races.');
+    });
+  },
+  data: function data() {
+    return {
+      loading: true,
+      races: null
+    };
   }
 });
 
@@ -2205,44 +2266,23 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Welcome.vue?vue&type=script&lang=js& ***!
   \******************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
 //
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/BirthdaysIndex.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/BirthdaysIndex.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_CarsList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/CarsList */ "./resources/js/components/CarsList.vue");
 //
 //
 //
 //
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "CarsIndex",
-  components: {
-    CarsList: _components_CarsList__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
-});
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 
@@ -2280,6 +2320,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CarsCreate",
@@ -2292,7 +2334,7 @@ __webpack_require__.r(__webpack_exports__);
         'name': '',
         'colour': '',
         'image': '',
-        'birthday': ''
+        'value': ''
       },
       errors: null
     };
@@ -2338,6 +2380,20 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_InputField__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/InputField */ "./resources/js/components/InputField.vue");
+var _name$data$components;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2365,8 +2421,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({
+/* harmony default export */ __webpack_exports__["default"] = (_name$data$components = {
   name: "CarsCreate",
+  data: {
+    imageUrl: null
+  },
   components: {
     InputField: _components_InputField__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -2375,6 +2434,9 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get('/api/cars/' + this.$route.params.id).then(function (response) {
       _this.form = response.data.data;
+
+      _this.makeImageLink();
+
       _this.loading = false;
     })["catch"](function (error) {
       _this.loading = false;
@@ -2383,31 +2445,57 @@ __webpack_require__.r(__webpack_exports__);
         _this.$router.push('/cars');
       }
     });
-  },
-  data: function data() {
-    return {
-      form: {
-        'name': '',
-        'colour': '',
-        'photoUrl': '',
-        'birthday': ''
-      },
-      errors: null,
-      loading: true
-    };
-  },
-  methods: {
-    submitForm: function submitForm() {
-      var _this2 = this;
+  }
+}, _defineProperty(_name$data$components, "data", function data() {
+  return {
+    form: {
+      'name': '',
+      'colour': '',
+      'image': '',
+      'value': ''
+    },
+    hasImage: false,
+    errors: null,
+    loading: true
+  };
+}), _defineProperty(_name$data$components, "methods", {
+  submitForm: function submitForm() {
+    var _this2 = this;
 
-      axios.patch('/api/cars/' + this.$route.params.id, this.form).then(function (response) {
-        _this2.$router.push(response.data.links.self);
-      })["catch"](function (errors) {
-        _this2.errors = errors.response.data.errors;
-      });
+    this.form.image = this.image;
+    axios.patch('/api/cars/' + this.$route.params.id, this.form).then(function (response) {
+      _this2.$router.push(response.data.links.self);
+    })["catch"](function (errors) {
+      _this2.errors = errors.response.data.errors;
+    });
+  },
+  onFileSelected: function onFileSelected(e) {
+    console.log(this.imageUrl);
+    console.log(e);
+    var files = e.target.files || e.dataTransfer.files;
+    if (!files.length) return;
+    this.createImage(files[0]);
+    this.imageUrl = e.target.result;
+  },
+  createImage: function createImage(file) {
+    var reader = new FileReader();
+    var vm = this;
+
+    reader.onload = function (e) {
+      vm.image = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  },
+  makeImageLink: function makeImageLink() {
+    if (this.form.photoUrl !== null) {
+      this.imageUrl = "https://mytoycars.s3.eu-west-2.amazonaws.com/" + this.form.photoUrl;
+      this.hasImage = true;
+    } else {
+      this.hasImage = false;
     }
   }
-});
+}), _name$data$components);
 
 /***/ }),
 
@@ -2489,6 +2577,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CarsShow",
@@ -2500,6 +2595,9 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get('/api/cars/' + this.$route.params.id).then(function (response) {
       _this.car = response.data.data;
+
+      _this.makeImageLink();
+
       _this.loading = false;
     })["catch"](function (error) {
       _this.loading = false;
@@ -2513,7 +2611,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       loading: true,
       modal: false,
-      car: null
+      car: null,
+      imageUrl: null,
+      hasImage: false
     };
   },
   methods: {
@@ -2525,7 +2625,39 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         alert('Internal Error. Unable to delete car.');
       });
+    },
+    makeImageLink: function makeImageLink() {
+      if (this.car.photoUrl !== null) {
+        this.imageUrl = "https://mytoycars.s3.eu-west-2.amazonaws.com/" + this.car.photoUrl;
+        this.hasImage = true;
+      } else {
+        this.hasImage = false;
+      }
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/RacesIndex.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/RacesIndex.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_RacesList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/RacesList */ "./resources/js/components/RacesList.vue");
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "RacesIndex",
+  components: {
+    RacesList: _components_RacesList__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -20935,7 +21067,7 @@ var render = function() {
                 {
                   staticClass:
                     "flex items-center py-2 hover:text-blue-600 text-sm",
-                  attrs: { to: "/birthdays" }
+                  attrs: { to: "/races/past" }
                 },
                 [
                   _c(
@@ -20958,7 +21090,40 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "tracking-wide pl-3" }, [
-                    _vm._v("Races")
+                    _vm._v("Past Races")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass:
+                    "flex items-center py-2 hover:text-blue-600 text-sm",
+                  attrs: { to: "/races/upcoming" }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "fill-current text-blue-600 w-5 h-5",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 20 20"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M1 4c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4zm2 2v12h14V6H3zm2-6h2v2H5V0zm8 0h2v2h-2V0zM5 9h2v2H5V9zm0 4h2v2H5v-2zm4-4h2v2H9V9zm0 4h2v2H9v-2zm4-4h2v2h-2V9zm0 4h2v2h-2v-2z"
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "tracking-wide pl-3" }, [
+                    _vm._v("Upcoming Races")
                   ])
                 ]
               ),
@@ -21105,7 +21270,15 @@ var render = function() {
                       attrs: { to: "/cars/" + car.data.car_id }
                     },
                     [
-                      _c("UserCircle", { attrs: { name: car.data.name } }),
+                      _c("img", {
+                        staticClass:
+                          "w-16 h-16 object-contain rounded-full mr-4",
+                        attrs: {
+                          src:
+                            "https://mytoycars.s3.eu-west-2.amazonaws.com/" +
+                            car.data.photoUrl
+                        }
+                      }),
                       _vm._v(" "),
                       _c("div", { staticClass: "pl-4" }, [
                         _c("p", { staticClass: "text-blue-400 font-bold" }, [
@@ -21116,8 +21289,7 @@ var render = function() {
                           _vm._v(_vm._s(car.data.colour))
                         ])
                       ])
-                    ],
-                    1
+                    ]
                   )
                 ],
                 1
@@ -21160,34 +21332,104 @@ var render = function() {
       [_vm._v(_vm._s(_vm.label))]
     ),
     _vm._v(" "),
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.value,
-          expression: "value"
-        }
-      ],
-      staticClass:
-        "pt-8 w-full text-gray-900 border-b pb-2 focus:outline-none focus:border-blue-400",
-      class: _vm.errorClassObject(),
-      attrs: { id: _vm.name, type: "text", placeholder: _vm.placeholder },
-      domProps: { value: _vm.value },
-      on: {
-        input: [
-          function($event) {
-            if ($event.target.composing) {
-              return
+    _vm.type === "checkbox"
+      ? _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.value,
+              expression: "value"
             }
-            _vm.value = $event.target.value
+          ],
+          staticClass:
+            "pt-8 w-full text-gray-900 border-b pb-2 focus:outline-none focus:border-blue-400",
+          class: _vm.errorClassObject(),
+          attrs: {
+            id: _vm.name,
+            placeholder: _vm.placeholder,
+            type: "checkbox"
           },
-          function($event) {
-            return _vm.updateField()
+          domProps: {
+            checked: Array.isArray(_vm.value)
+              ? _vm._i(_vm.value, null) > -1
+              : _vm.value
+          },
+          on: {
+            input: function($event) {
+              return _vm.updateField()
+            },
+            change: function($event) {
+              var $$a = _vm.value,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 && (_vm.value = $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    (_vm.value = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+                }
+              } else {
+                _vm.value = $$c
+              }
+            }
           }
-        ]
-      }
-    }),
+        })
+      : _vm.type === "radio"
+      ? _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.value,
+              expression: "value"
+            }
+          ],
+          staticClass:
+            "pt-8 w-full text-gray-900 border-b pb-2 focus:outline-none focus:border-blue-400",
+          class: _vm.errorClassObject(),
+          attrs: { id: _vm.name, placeholder: _vm.placeholder, type: "radio" },
+          domProps: { checked: _vm._q(_vm.value, null) },
+          on: {
+            input: function($event) {
+              return _vm.updateField()
+            },
+            change: function($event) {
+              _vm.value = null
+            }
+          }
+        })
+      : _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.value,
+              expression: "value"
+            }
+          ],
+          staticClass:
+            "pt-8 w-full text-gray-900 border-b pb-2 focus:outline-none focus:border-blue-400",
+          class: _vm.errorClassObject(),
+          attrs: { id: _vm.name, placeholder: _vm.placeholder, type: _vm.type },
+          domProps: { value: _vm.value },
+          on: {
+            input: [
+              function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.value = $event.target.value
+              },
+              function($event) {
+                return _vm.updateField()
+              }
+            ]
+          }
+        }),
     _vm._v(" "),
     _c(
       "p",
@@ -21197,6 +21439,92 @@ var render = function() {
       },
       [_vm._v("Error Here")]
     )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RacesList.vue?vue&type=template&id=329b6da5&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/RacesList.vue?vue&type=template&id=329b6da5&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.loading
+      ? _c("div", [_vm._v("Loading...")])
+      : _c(
+          "div",
+          [
+            _vm.races.length === 0
+              ? _c("div", [
+                  _c(
+                    "p",
+                    [
+                      _vm._v("No races yet. "),
+                      _c("router-link", { attrs: { to: "/race/create" } }, [
+                        _vm._v("Get Started >")
+                      ])
+                    ],
+                    1
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._l(_vm.races, function(race) {
+              return _c(
+                "div",
+                { key: race.id },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "flex items-center border-b border-gray-400 p-4 hover:bg-gray-100",
+                      attrs: { to: "/races/" + race.data.race_id }
+                    },
+                    [
+                      _c("img", {
+                        staticClass:
+                          "w-16 h-16 object-contain rounded-full mr-4",
+                        attrs: {
+                          src:
+                            "https://mytoyraces.s3.eu-west-2.amazonaws.com/" +
+                            race.data.photoUrl
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "pl-4" }, [
+                        _c("p", { staticClass: "text-blue-400 font-bold" }, [
+                          _vm._v(_vm._s(race.data.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "text-gray-600" }, [
+                          _vm._v(_vm._s(race.data.colour))
+                        ])
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            })
+          ],
+          2
+        )
   ])
 }
 var staticRenderFns = []
@@ -21397,33 +21725,55 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [_vm._v("Welcome to My Toy Cars!")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/BirthdaysIndex.vue?vue&type=template&id=02650dbb&scoped=true&":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/BirthdaysIndex.vue?vue&type=template&id=02650dbb&scoped=true& ***!
-  \************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("CarsList", { attrs: { endpoint: "/api/birthdays" } })
-}
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mr-20" }, [
+      _c("h1", { staticClass: "text-4xl font-black py-2" }, [
+        _vm._v("What is  MyToyCars (™)?")
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "MyToyCars (™) is a small application for anyone who has a collection of toy cars to keep a well organised list of all their treasured motors.\n    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("h1", { staticClass: "text-4xl font-black py-2" }, [
+        _vm._v("How much does my toy cars cost?")
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "Currently MyToyCars (™) is in Beta, and is free to use. However, we expect that with increased traffic a subscription plan will be introduced in the summer of 2030.\n    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("h1", { staticClass: "text-4xl font-black py-2" }, [
+        _vm._v("What are races?")
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "Whenever you have a race against your friends, any user who is an admin can record the results. Admins can also register future races, and you can see upcoming races in the "
+        ),
+        _c(
+          "a",
+          {
+            staticClass: "text-orange-700 font-bold",
+            attrs: { href: "/upcomingraces" }
+          },
+          [_vm._v("upcoming races")]
+        ),
+        _vm._v(" page.\n    ")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -21489,15 +21839,15 @@ var render = function() {
         _vm._v(" "),
         _c("InputField", {
           attrs: {
-            type: "text",
-            name: "birthday",
-            label: "Birthday",
+            type: "number",
+            name: "value",
+            label: "Value",
             errors: _vm.errors,
-            placeholder: "MM/DD/YYYY"
+            placeholder: "£000.00"
           },
           on: {
             "update:field": function($event) {
-              _vm.form.birthday = $event
+              _vm.form.value = $event
             }
           }
         }),
@@ -21513,38 +21863,38 @@ var render = function() {
           on: { change: _vm.onFileSelected }
         }),
         _vm._v(" "),
-        _vm._m(0)
+        _c(
+          "div",
+          { staticClass: "flex justify-end" },
+          [
+            _c("router-link", { attrs: { to: "/" } }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "py-2 px-4 rounded text-red-700 border mr-5 hover:border-red-700"
+                },
+                [_vm._v("Cancel")]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "bg-blue-500 py-2 px-4 text-white rounded hover:bg-blue-400"
+              },
+              [_vm._v("Add New Car")]
+            )
+          ],
+          1
+        )
       ],
       1
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex justify-end" }, [
-      _c(
-        "button",
-        {
-          staticClass:
-            "py-2 px-4 rounded text-red-700 border mr-5 hover:border-red-700"
-        },
-        [_vm._v("Cancel")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "bg-blue-500 py-2 px-4 text-white rounded hover:bg-blue-400"
-        },
-        [_vm._v("Add New Car")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -21616,7 +21966,7 @@ var render = function() {
             label: "Car Colour",
             errors: _vm.errors,
             placeholder: "Car Colour",
-            data: _vm.form.email
+            data: _vm.form.colour
           },
           on: {
             "update:field": function($event) {
@@ -21627,33 +21977,63 @@ var render = function() {
         _vm._v(" "),
         _c("InputField", {
           attrs: {
-            name: "owner",
-            label: "Owner",
+            name: "value",
+            label: "Value",
             errors: _vm.errors,
-            placeholder: "Owner",
-            data: _vm.form.owner
+            placeholder: "MM/DD/YYYY",
+            data: _vm.form.value
           },
           on: {
             "update:field": function($event) {
-              _vm.form.owner = $event
+              _vm.form.value = $event
             }
           }
         }),
         _vm._v(" "),
-        _c("InputField", {
-          attrs: {
-            name: "birthday",
-            label: "Birthday",
-            errors: _vm.errors,
-            placeholder: "MM/DD/YYYY",
-            data: _vm.form.birthday
-          },
-          on: {
-            "update:field": function($event) {
-              _vm.form.birthday = $event
-            }
-          }
-        }),
+        _vm.hasImage
+          ? _c("div", { staticClass: "pt-2 align-left" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "text-blue-500 py-4 uppercase text-xs font-bold",
+                  attrs: { for: "image" }
+                },
+                [_vm._v("Upload a new image")]
+              ),
+              _vm._v(" "),
+              _c("img", { attrs: { src: _vm.imageUrl } }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "py-6",
+                attrs: {
+                  type: "file",
+                  name: "image",
+                  label: "image",
+                  errors: _vm.errors
+                },
+                on: { change: _vm.onFileSelected }
+              })
+            ])
+          : _c("div", { staticClass: "pt-2 align-left" }, [
+              _c(
+                "svg",
+                {
+                  staticClass: "fill-current text-gray-800 w-64 h-64",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 20 20"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M0 4c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm11 9l-3-3-6 6h16l-5-5-2 2zm4-4a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
+                    }
+                  })
+                ]
+              )
+            ]),
         _vm._v(" "),
         _vm._m(0)
       ],
@@ -21843,12 +22223,8 @@ var render = function() {
           _c("div", { staticClass: "flex items-center pt-6" }, [
             _c("p", { staticClass: "text-6xl" }, [_vm._v(_vm._s(_vm.car.name))])
           ]),
-          _vm._v(" "),
-          _c(
-            "p",
-            { staticClass: "pt-6 text-gray-600 font-bold uppercase text-sm" },
-            [_vm._v("Car")]
-          ),
+          _vm._v("Car"),
+          _c("p"),
           _vm._v(" "),
           _c("p", { staticClass: "pt-2 text-blue-400" }, [
             _vm._v(_vm._s(_vm.car.colour))
@@ -21867,21 +22243,63 @@ var render = function() {
           _c(
             "p",
             { staticClass: "pt-6 text-gray-600 font-bold uppercase text-sm" },
-            [_vm._v("Birthday")]
+            [_vm._v("Value")]
           ),
           _vm._v(" "),
           _c("p", { staticClass: "pt-2 text-blue-400" }, [
-            _vm._v(_vm._s(_vm.car.birthday))
+            _vm._v("£" + _vm._s(_vm.car.value))
           ]),
           _vm._v(" "),
-          _c("img", {
-            attrs: {
-              src:
-                "https://mytoycars.s3.eu-west-2.amazonaws.com/cars/47-1579714723.jpeg"
-            }
-          })
+          _vm.hasImage
+            ? _c("div", { staticClass: "pt-4 align-left" }, [
+                _c("img", { attrs: { src: _vm.imageUrl } })
+              ])
+            : _c("div", { staticClass: "pt-4 align-left" }, [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "fill-current text-gray-800 w-64 h-64",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 20 20"
+                    }
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "M0 4c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm11 9l-3-3-6 6h16l-5-5-2 2zm4-4a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
+                      }
+                    })
+                  ]
+                )
+              ])
         ])
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/RacesIndex.vue?vue&type=template&id=52a24ee2&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/RacesIndex.vue?vue&type=template&id=52a24ee2&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("RacesList", { attrs: { endpoint: "/api/races:time" } })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37081,6 +37499,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/RacesList.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/RacesList.vue ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _RacesList_vue_vue_type_template_id_329b6da5_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RacesList.vue?vue&type=template&id=329b6da5&scoped=true& */ "./resources/js/components/RacesList.vue?vue&type=template&id=329b6da5&scoped=true&");
+/* harmony import */ var _RacesList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RacesList.vue?vue&type=script&lang=js& */ "./resources/js/components/RacesList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _RacesList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RacesList_vue_vue_type_template_id_329b6da5_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RacesList_vue_vue_type_template_id_329b6da5_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "329b6da5",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/RacesList.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/RacesList.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/RacesList.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RacesList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./RacesList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RacesList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RacesList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/RacesList.vue?vue&type=template&id=329b6da5&scoped=true&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/RacesList.vue?vue&type=template&id=329b6da5&scoped=true& ***!
+  \******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RacesList_vue_vue_type_template_id_329b6da5_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./RacesList.vue?vue&type=template&id=329b6da5&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/RacesList.vue?vue&type=template&id=329b6da5&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RacesList_vue_vue_type_template_id_329b6da5_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RacesList_vue_vue_type_template_id_329b6da5_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/SearchBar.vue":
 /*!***********************************************!*\
   !*** ./resources/js/components/SearchBar.vue ***!
@@ -37223,14 +37710,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************!*\
   !*** ./resources/js/components/Welcome.vue ***!
   \*********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Welcome_vue_vue_type_template_id_51777872___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Welcome.vue?vue&type=template&id=51777872& */ "./resources/js/components/Welcome.vue?vue&type=template&id=51777872&");
 /* harmony import */ var _Welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Welcome.vue?vue&type=script&lang=js& */ "./resources/js/components/Welcome.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -37260,13 +37748,15 @@ component.options.__file = "resources/js/components/Welcome.vue"
 /*!**********************************************************************!*\
   !*** ./resources/js/components/Welcome.vue?vue&type=script&lang=js& ***!
   \**********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Welcome.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Welcome.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Welcome_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -37305,7 +37795,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_CarsShow__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/CarsShow */ "./resources/js/views/CarsShow.vue");
 /* harmony import */ var _views_CarsEdit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/CarsEdit */ "./resources/js/views/CarsEdit.vue");
 /* harmony import */ var _views_CarsIndex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/CarsIndex */ "./resources/js/views/CarsIndex.vue");
-/* harmony import */ var _views_BirthdaysIndex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/BirthdaysIndex */ "./resources/js/views/BirthdaysIndex.vue");
+/* harmony import */ var _views_RacesIndex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/RacesIndex */ "./resources/js/views/RacesIndex.vue");
 /* harmony import */ var _Actions_Logout__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Actions/Logout */ "./resources/js/Actions/Logout.vue");
 
 
@@ -37349,10 +37839,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       title: 'Edit Car'
     }
   }, {
-    path: '/birthdays',
-    component: _views_BirthdaysIndex__WEBPACK_IMPORTED_MODULE_7__["default"],
+    path: '/races/:time',
+    component: _views_RacesIndex__WEBPACK_IMPORTED_MODULE_7__["default"],
     meta: {
-      title: 'This Month\'s Races'
+      title: 'Races'
     }
   }, {
     path: '/logout',
@@ -37360,75 +37850,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }],
   mode: 'history'
 }));
-
-/***/ }),
-
-/***/ "./resources/js/views/BirthdaysIndex.vue":
-/*!***********************************************!*\
-  !*** ./resources/js/views/BirthdaysIndex.vue ***!
-  \***********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _BirthdaysIndex_vue_vue_type_template_id_02650dbb_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BirthdaysIndex.vue?vue&type=template&id=02650dbb&scoped=true& */ "./resources/js/views/BirthdaysIndex.vue?vue&type=template&id=02650dbb&scoped=true&");
-/* harmony import */ var _BirthdaysIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BirthdaysIndex.vue?vue&type=script&lang=js& */ "./resources/js/views/BirthdaysIndex.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _BirthdaysIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _BirthdaysIndex_vue_vue_type_template_id_02650dbb_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _BirthdaysIndex_vue_vue_type_template_id_02650dbb_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  "02650dbb",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/views/BirthdaysIndex.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/views/BirthdaysIndex.vue?vue&type=script&lang=js&":
-/*!************************************************************************!*\
-  !*** ./resources/js/views/BirthdaysIndex.vue?vue&type=script&lang=js& ***!
-  \************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BirthdaysIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./BirthdaysIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/BirthdaysIndex.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BirthdaysIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/views/BirthdaysIndex.vue?vue&type=template&id=02650dbb&scoped=true&":
-/*!******************************************************************************************!*\
-  !*** ./resources/js/views/BirthdaysIndex.vue?vue&type=template&id=02650dbb&scoped=true& ***!
-  \******************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BirthdaysIndex_vue_vue_type_template_id_02650dbb_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./BirthdaysIndex.vue?vue&type=template&id=02650dbb&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/BirthdaysIndex.vue?vue&type=template&id=02650dbb&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BirthdaysIndex_vue_vue_type_template_id_02650dbb_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BirthdaysIndex_vue_vue_type_template_id_02650dbb_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
 
 /***/ }),
 
@@ -37703,6 +38124,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CarsShow_vue_vue_type_template_id_028d68db_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CarsShow_vue_vue_type_template_id_028d68db_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/RacesIndex.vue":
+/*!*******************************************!*\
+  !*** ./resources/js/views/RacesIndex.vue ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _RacesIndex_vue_vue_type_template_id_52a24ee2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RacesIndex.vue?vue&type=template&id=52a24ee2&scoped=true& */ "./resources/js/views/RacesIndex.vue?vue&type=template&id=52a24ee2&scoped=true&");
+/* harmony import */ var _RacesIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RacesIndex.vue?vue&type=script&lang=js& */ "./resources/js/views/RacesIndex.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _RacesIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RacesIndex_vue_vue_type_template_id_52a24ee2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RacesIndex_vue_vue_type_template_id_52a24ee2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "52a24ee2",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/RacesIndex.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/RacesIndex.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./resources/js/views/RacesIndex.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RacesIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./RacesIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/RacesIndex.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RacesIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/RacesIndex.vue?vue&type=template&id=52a24ee2&scoped=true&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/views/RacesIndex.vue?vue&type=template&id=52a24ee2&scoped=true& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RacesIndex_vue_vue_type_template_id_52a24ee2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./RacesIndex.vue?vue&type=template&id=52a24ee2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/RacesIndex.vue?vue&type=template&id=52a24ee2&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RacesIndex_vue_vue_type_template_id_52a24ee2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RacesIndex_vue_vue_type_template_id_52a24ee2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

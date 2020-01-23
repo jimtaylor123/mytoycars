@@ -8,14 +8,16 @@
             <InputField type="text" name="colour" label="Car Colour" :errors="errors"
             placeholder="Car Colour" @update:field="form.colour = $event" />
 
-            <InputField type="text" name="birthday" label="Birthday" :errors="errors"
-            placeholder="MM/DD/YYYY" @update:field="form.birthday = $event" />
+            <InputField type="number" name="value" label="Value" :errors="errors"
+            placeholder="£000.00" @update:field="form.value = $event" />
 
             <input type="file" class="py-4" name="image" label="image" :errors="errors"
             @change="onFileSelected" />
 
             <div class="flex justify-end">
-                <button class="py-2 px-4 rounded text-red-700 border mr-5 hover:border-red-700">Cancel</button>
+                <router-link to="/">
+                    <button class="py-2 px-4 rounded text-red-700 border mr-5 hover:border-red-700">Cancel</button>
+                </router-link>
                 <button class="bg-blue-500 py-2 px-4 text-white rounded hover:bg-blue-400">Add New Car</button>
             </div>
         </form>
@@ -38,7 +40,7 @@
                     'name': '',
                     'colour': '',
                     'image': '',
-                    'birthday': '',
+                    'value': '',
                 },
                 errors: null,
             }

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
@@ -12,25 +11,27 @@ class Car extends Model
 
     protected $guarded = [];
 
-    protected $dates = ['birthday'];
+    protected $casts = [
+        'value' => 'decimal:2',
+    ];
 
     public function path()
     {
         return '/cars/' . $this->id;
     }
 
-    public function scopeBirthdays($query)
+    public function setValueAttribute($value)
     {
-        return $query->whereRaw('birthday like "%-' . now()->format('m') . '-%"');
-    }
-
-    public function setBirthdayAttribute($birthday)
-    {
-        $this->attributes['birthday'] = Carbon::parse($birthday);
+        $this->attributes['value'] = number_format((float)$value, 2, '.', '');
     }
 
     public function owner()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function results()
+    {
+        return $this->hasMany(Result::class);
     }
 }

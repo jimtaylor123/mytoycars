@@ -65,7 +65,7 @@ class CarsTest extends TestCase
 
         $this->assertEquals('Lambourghini Capri', $car->name);
         $this->assertEquals('Navy Blue', $car->colour);
-        $this->assertEquals('02/13/1980', $car->birthday->format('m/d/Y'));
+        $this->assertEquals('02/13/1980', $car->race->format('m/d/Y'));
         $this->assertEquals($this->user->id, $car->user_id);
         $response->assertStatus(Response::HTTP_CREATED);
         $response->assertJson([
@@ -81,7 +81,7 @@ class CarsTest extends TestCase
     /** @test */
     public function fields_are_required()
     {
-        collect(['name', 'colour', 'birthday', 'user_id'])
+        collect(['name', 'colour', 'race', 'user_id', 'value'])
             ->each(function ($field) {
                 $response = $this->post('/api/cars',
                     array_merge($this->data(), [$field => '']));
@@ -92,7 +92,7 @@ class CarsTest extends TestCase
     }
 
     /** @test */
-    public function birthdays_are_properly_stored()
+    public function races_are_properly_stored()
     {
         $this->withoutExceptionHandling();
 
@@ -100,8 +100,8 @@ class CarsTest extends TestCase
             array_merge($this->data()));
 
         $this->assertCount(1, Car::all());
-        $this->assertInstanceOf(Carbon::class, Car::first()->birthday);
-        $this->assertEquals('13-02-1980', Car::first()->birthday->format('d-m-Y'));
+        $this->assertInstanceOf(Carbon::class, Car::first()->race);
+        $this->assertEquals('13-02-1980', Car::first()->race->format('d-m-Y'));
     }
 
     /** @test */
@@ -116,7 +116,7 @@ class CarsTest extends TestCase
                 'car_id' => $car->id,
                 'name' => $car->name,
                 'colour' => $car->colour,
-                'birthday' => $car->birthday->format('m/d/Y'),
+                'race' => $car->race->format('m/d/Y'),
                 'user_id' => $car->user_id,
                 'last_updated' => $car->updated_at->diffForHumans(),
             ]
@@ -146,7 +146,7 @@ class CarsTest extends TestCase
 
         $this->assertEquals('Lambourghini Capri', $car->name);
         $this->assertEquals('Navy Blue', $car->colour);
-        $this->assertEquals('13/02/1980', $car->birthday->format('d/m/Y'));
+        $this->assertEquals('13/02/1980', $car->race->format('d/m/Y'));
         $this->assertEquals( $this->user->id, $car->user_id);
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJson([
@@ -202,7 +202,8 @@ class CarsTest extends TestCase
         return [
             'name' => 'Lambourghini Capri',
             'colour' => 'Navy Blue',
-            'birthday' => '02/13/1980',
+            'value' => '10.99',
+            'race' => '02/13/1980',
             'user_id' => $this->user->id,
             'api_token' => $this->user->api_token
         ];

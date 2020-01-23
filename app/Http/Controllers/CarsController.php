@@ -37,11 +37,13 @@ class CarsController extends Controller
         return new CarResource($car);
     }
 
-    public function update(Car $car)
+    public function update(Request $request, Car $car)
     {
         $this->authorize('update', $car);
 
         $car->update($this->validateData());
+
+        if($request->get('image')) CarService::saveImage($request, $car);
 
         return (new CarResource($car))
             ->response()
@@ -62,7 +64,7 @@ class CarsController extends Controller
         return request()->validate([
             'name' => 'required',
             'colour' => 'required',
-            'birthday' => 'required'
+            'value' => 'required'
         ]);
     }
 }

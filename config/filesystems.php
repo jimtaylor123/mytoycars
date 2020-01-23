@@ -61,9 +61,7 @@ return [
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-            'endpoint' => env('MINIO_ENDPOINT')? env('MINIO_ENDPOINT'): "",
-            'use_path_style_endpoint' => env('MINIO_ENDPOINT')? true:false
+            'url' => env('AWS_URL')
         ],
 
     ],

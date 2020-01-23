@@ -24,7 +24,7 @@
 
             <div class="flex items-center pt-6">
                 <p class="text-6xl">{{ car.name }}</p>
-            </div>
+            </div
 
             <p class="pt-6 text-gray-600 font-bold uppercase text-sm">Car</p>
             <p class="pt-2 text-blue-400">{{ car.colour }}</p>
@@ -32,10 +32,17 @@
             <p class="pt-6 text-gray-600 font-bold uppercase text-sm">Owner</p>
             <p class="pt-2 text-blue-400">{{ car.owner }}</p>
 
-            <p class="pt-6 text-gray-600 font-bold uppercase text-sm">Birthday</p>
-            <p class="pt-2 text-blue-400">{{ car.birthday }}</p>
+            <p class="pt-6 text-gray-600 font-bold uppercase text-sm">Value</p>
+            <p class="pt-2 text-blue-400">£{{ car.value }}</p>
 
-            <img src="https://mytoycars.s3.eu-west-2.amazonaws.com/cars/47-1579714723.jpeg">
+            <div class="pt-4 align-left" v-if="hasImage">
+                <img :src="imageUrl">
+            </div>
+            <div class="pt-4 align-left" v-else>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" 
+                class="fill-current text-gray-800 w-64 h-64"><path d="M0 4c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm11 9l-3-3-6 6h16l-5-5-2 2zm4-4a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+                
+            </div>
 
         </div>
 
@@ -56,7 +63,7 @@
             axios.get('/api/cars/' + this.$route.params.id)
                 .then(response => {
                     this.car = response.data.data;
-
+                    this.makeImageLink();
                     this.loading = false;
                 })
                 .catch(error => {
@@ -73,6 +80,8 @@
                 loading: true,
                 modal: false,
                 car: null,
+                imageUrl: null,
+                hasImage: false
             }
         },
 
@@ -85,6 +94,16 @@
                     .catch(error => {
                         alert('Internal Error. Unable to delete car.');
                     });
+            },
+            makeImageLink: function() {
+                if(
+                    this.car.photoUrl !== null
+                ){
+                    this.imageUrl = "https://mytoycars.s3.eu-west-2.amazonaws.com/" + this.car.photoUrl;
+                    this.hasImage = true;
+                } else {
+                    this.hasImage = false;
+                }
             }
         }
     }

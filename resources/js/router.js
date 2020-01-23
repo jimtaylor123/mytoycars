@@ -5,7 +5,7 @@ import CarsCreate from "./views/CarsCreate";
 import CarsShow from "./views/CarsShow";
 import CarsEdit from "./views/CarsEdit";
 import CarsIndex from "./views/CarsIndex";
-import BirthdaysIndex from "./views/BirthdaysIndex";
+import RacesIndex from "./views/RacesIndex";
 import Logout from "./Actions/Logout";
 
 Vue.use(VueRouter);
@@ -28,8 +28,8 @@ export default new VueRouter({
             path: '/cars/:id/edit', component: CarsEdit,
             meta: { title: 'Edit Car' }
         }, {
-            path: '/birthdays', component: BirthdaysIndex,
-            meta: { title: 'This Month\'s Races' }
+            path: '/races/:time', component: RacesIndex,
+            meta: { title: 'Races' }
         }, {
             path: '/logout', component: Logout
         }

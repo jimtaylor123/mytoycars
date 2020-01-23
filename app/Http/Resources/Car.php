@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\User;
 
 class Car extends JsonResource
 {
@@ -20,9 +21,10 @@ class Car extends JsonResource
                 'user_id' => $this->user_id,
                 'name' => $this->name,
                 'colour' => $this->colour,
-                'birthday' => $this->birthday->format('m/d/Y'),
+                'value' => $this->value,
                 'photoUrl' =>  $this->photoUrl,
                 'last_updated' => $this->updated_at->diffForHumans(),
+                'owner' => User::find($this->user_id)->name
             ],
             'links' => [
                 'self' => $this->path(),
