@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Car;
+use App\Models\Car;
 use App\Http\Resources\Car as CarResource;
-use App\Services\CarService;
+use App\Services\CarsService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Traits\HasImages;
 
 class CarsController extends Controller
 {
+
+    use HasImages;
 
     public function index()
     {
@@ -23,7 +26,7 @@ class CarsController extends Controller
         $this->authorize('create', Car::class);
         $car = request()->user()->cars()->create($this->validateData());
 
-        if($request->get('image')) CarService::saveImage($request, $car);
+        if($request->get('image')) $this->saveImage($request, $car);
 
         return (new CarResource($car))
             ->response()
@@ -43,7 +46,7 @@ class CarsController extends Controller
 
         $car->update($this->validateData());
 
-        if($request->get('image')) CarService::saveImage($request, $car);
+        if($request->get('image')) $this->saveImage($request, $car);
 
         return (new CarResource($car))
             ->response()

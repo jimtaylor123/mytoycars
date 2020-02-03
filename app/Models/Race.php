@@ -1,12 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Race extends Model
 {
     protected $guarded = [];
+
+    public function path()
+    {
+        return '/races/' . $this->id;
+    }
 
     public function scopeUpcoming($query)
     {

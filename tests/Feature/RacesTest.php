@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Car;
-use App\User;
+use App\Models\Car;
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;

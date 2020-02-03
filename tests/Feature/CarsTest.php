@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Car;
-use App\User;
+use App\Models\Car;
+use App\Models\User;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;

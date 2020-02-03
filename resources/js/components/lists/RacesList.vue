@@ -8,10 +8,9 @@
 
             <div v-for="race in races" v-bind:key="race.id">
                 <router-link :to="'/races/' + race.data.race_id" class="flex items-center border-b border-gray-400 p-4 hover:bg-gray-100">
-                    <img class="w-16 h-16 object-contain rounded-full mr-4" :src="'https://mytoyraces.s3.eu-west-2.amazonaws.com/'+race.data.photoUrl">
                     <div class="pl-4">
                         <p class="text-blue-400 font-bold">{{ race.data.name }}</p>
-                        <p class="text-gray-600">{{ race.data.colour }}</p>
+                        <p class="text-gray-600">{{ race.data.date }}</p>
                     </div>
                 </router-link>
             </div>
@@ -20,7 +19,7 @@
 </template>
 
 <script>
-    import UserCircle from './UserCircle';
+    import UserCircle from '../UserCircle';
 
     export default {
         name: "RacesList",
@@ -30,27 +29,26 @@
         },
 
         props: [
-            'endpoint',
+            'endpoint'
         ],
 
         mounted() {
-            axios.get(this.endpoint)
+            axios.get( this.endpoint + this.$route.meta.time)
                 .then(response => {
                     this.races = response.data.data;
-
                     this.loading = false;
                 })
                 .catch(error => {
                     this.loading = false;
 
-                    alert('Unable to fetch races.');
+                    console.log('Unable to fetch races.');
                 });
         },
 
         data: function () {
             return {
                 loading: true,
-                races: null,
+                races: null
             }
         }
     }

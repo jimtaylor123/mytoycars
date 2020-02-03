@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
@@ -33,5 +33,10 @@ class Car extends Model
     public function results()
     {
         return $this->hasMany(Result::class);
+    }
+
+    public function races()
+    {
+        return $this->belongsTo(Race::class);
     }
 }

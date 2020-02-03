@@ -6,7 +6,7 @@
                 <p>No cars yet. <router-link to="/car/create">Get Started ></router-link></p>
             </div>
 
-            <div v-for="car in cars" v-bind:key="car.id">
+            <div v-for="car in cars" v-bind:key="car.data.car_id">
                 <router-link :to="'/cars/' + car.data.car_id" class="flex items-center border-b border-gray-400 p-4 hover:bg-gray-100">
                     <img class="w-16 h-16 object-contain rounded-full mr-4" :src="'https://mytoycars.s3.eu-west-2.amazonaws.com/'+car.data.photoUrl">
                     <div class="pl-4">
@@ -43,7 +43,7 @@
                 .catch(error => {
                     this.loading = false;
 
-                    alert('Unable to fetch cars.');
+                    console.log('Unable to fetch cars.');
                 });
         },
 

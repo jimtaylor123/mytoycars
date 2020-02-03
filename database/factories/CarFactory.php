@@ -2,8 +2,8 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Car;
-use App\User;
+use App\Models\Car;
+use App\Models\User;
 use Faker\Generator as Faker;
 
 $factory->define(Car::class, function (Faker $faker) {

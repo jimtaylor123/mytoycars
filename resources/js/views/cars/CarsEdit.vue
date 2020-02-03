@@ -35,7 +35,7 @@
 </template>
 
 <script>
-    import InputField from '../components/InputField';
+    import InputField from '../../components/InputField';
 
     export default {
         name: "CarsCreate",
@@ -94,7 +94,7 @@
                 if (!files.length)
                     return;
                 this.createImage(files[0]);
-                
+
                 this.imageUrl = e.target.result;
             },
             createImage(file) {

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import CarsList from '../components/CarsList';
+    import CarsList from '../../components/CarsList';
 
     export default {
         name: "CarsIndex",
