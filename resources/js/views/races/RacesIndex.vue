@@ -7,7 +7,7 @@
 
     export default {
         name: "RacesIndex",
-
+        
         components: {
             RacesList
         }

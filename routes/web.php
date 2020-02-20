@@ -2,6 +2,10 @@
 
 Auth::routes();
 
+// Route::get('/login', function () {
+//     // return login screen
+// });
+
 Route::get('/logout-manual', function () {
     request()->session()->invalidate();
 });

@@ -30,7 +30,7 @@ class RacePolicy
      */
     public function view(User $user, Race $race)
     {
-        return $user->id == $race->user_id;
+        return true;
     }
 
     /**
@@ -53,7 +53,7 @@ class RacePolicy
      */
     public function update(User $user, Race $race)
     {
-        return $user->id == $race->user_id;
+        return $user->admin;
     }
 
     /**

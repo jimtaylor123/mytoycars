@@ -2,6 +2,11 @@
 
 use Illuminate\Http\Request;
 
+/**
+     * Cities
+     */
+Route::get('city/search', 'CityController@search');
+
 Route::middleware('auth:api')->group(function () {
 
     /**
@@ -16,8 +21,10 @@ Route::middleware('auth:api')->group(function () {
     /**
      * Races
      */
-    Route::get('races/{time}', 'RaceController@index');
+    Route::get('races/{time}', 'RaceController@index')->where('time', '[A-Za-z]+');
+    Route::get('races/{race}', 'RaceController@show')->where('car', '[0-9]+');
     Route::post('races', 'RaceController@store');
+    Route::patch('races/{race}', 'RaceController@update');
 
      /**
      * Race Results
@@ -28,4 +35,6 @@ Route::middleware('auth:api')->group(function () {
      * Search
      */
     Route::post('search', 'SearchController@index');
+
+
 });

@@ -43,6 +43,13 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+        'sqlite-cities' => [
+            'driver' => 'sqlite',
+            'database' => '/Users/jimtaylor/Code/personal/laravellearning/mytoycars//vendor/teamtnt/tntsearch/tests/_files/cities.sqlite',
+            'prefix' => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),

@@ -10,37 +10,36 @@
                         </div>
                     </router-link>
 
+                    <p class="pt-12 text-gray-500 text-xs uppercase font-bold">General</p>
+
+                    <router-link to="/cars" class="flex items-center py-2 hover:text-blue-600 text-sm">
+                        <Icon icon="car"/>
+                       <div class="tracking-wide pl-3">Cars</div>
+                    </router-link>
+
+                    <router-link to="/races/past" class="flex items-center py-2 hover:text-blue-600 text-sm">
+                       <Icon icon="flag-checkered"/>
+                       <div class="tracking-wide pl-3">Past Races</div>
+                    </router-link>
+
+                    <router-link to="/races/upcoming" class="flex items-center py-2 hover:text-blue-600 text-sm">
+                       <Icon icon="calendar-alt"/>
+                       <div class="tracking-wide pl-3">Upcoming Races</div>
+                    </router-link>
+
                     <p class="pt-6 text-gray-500 text-xs uppercase font-bold">Create</p>
 
                     <router-link to="/cars/create" class="flex items-center py-2 hover:text-blue-600 text-sm">
-                        <PlusIcon></PlusIcon>
+                        <Icon icon="plus-circle"/>
                         <div class="tracking-wide pl-3">Add New Car</div>
                     </router-link>
 
                     <div v-show="user.admin">
                         <router-link to="/races/create" class="flex items-center py-2 hover:text-blue-600 text-sm">
-                            <PlusIcon></PlusIcon>
+                            <Icon icon="plus-circle"/>
                             <div class="tracking-wide pl-3">Add New Race</div>
                         </router-link>
                     </div>
-
-
-                    <p class="pt-12 text-gray-500 text-xs uppercase font-bold">General</p>
-
-                    <router-link to="/cars" class="flex items-center py-2 hover:text-blue-600 text-sm">
-                       <CarIcon></CarIcon>
-                       <div class="tracking-wide pl-3">Cars</div>
-                    </router-link>
-
-                    <router-link to="/races/past" class="flex items-center py-2 hover:text-blue-600 text-sm">
-                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current text-blue-600 w-5 h-5"><path d="M7.667 12H2v8H0V0h12l.333 2H20l-3 6 3 6H8l-.333-2z"/></svg>
-                       <div class="tracking-wide pl-3">Past Races</div>
-                    </router-link>
-
-                    <router-link to="/races/upcoming" class="flex items-center py-2 hover:text-blue-600 text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current text-blue-600 w-5 h-5"><path d="M1 4c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4zm2 2v12h14V6H3zm2-6h2v2H5V0zm8 0h2v2h-2V0zM5 9h2v2H5V9zm0 4h2v2H5v-2zm4-4h2v2H9V9zm0 4h2v2H9v-2zm4-4h2v2h-2V9zm0 4h2v2h-2v-2z"/></svg>
-                       <div class="tracking-wide pl-3">Upcoming Races</div>
-                    </router-link>
 
                     <p class="pt-12 text-gray-500 text-xs uppercase font-bold">Settings</p>
 
@@ -73,10 +72,8 @@
 
 <script>
     import UserCircle from './UserCircle';
-    import SearchBar from '../components/SearchBar';
-    // Icons
-    import PlusIcon from '../components/svgs/PlusIcon';
-    import CarIcon from '../components/svgs/CarIcon';
+    import SearchBar from '../components/inputs/SearchBar';
+    import Icon from '../components/Icon';
 
     export default {
         name: "App",
@@ -88,8 +85,7 @@
         components: {
             UserCircle,
             SearchBar,
-            PlusIcon,
-            CarIcon
+            Icon
         },
 
         created() {

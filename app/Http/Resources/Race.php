@@ -22,7 +22,8 @@ class Race extends JsonResource
                 'prize'    => $this->prize,
                 'location' => $this->location,
                 'lat'      => $this->lat,
-                'lng'      => $this->lng
+                'lng'      => $this->lng,
+                'results'  => $this->results()
             ],
             'links' => [
                 'self' => $this->path(),

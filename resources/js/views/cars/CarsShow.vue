@@ -59,20 +59,15 @@
             UserCircle
         },
 
-        mounted() {
-            axios.get('/api/cars/' + this.$route.params.id)
-                .then(response => {
-                    this.car = response.data.data;
-                    this.makeImageLink();
-                    this.loading = false;
-                })
-                .catch(error => {
-                    this.loading = false;
+        watch: {
+            '$route' (to, from){
+                console.log(to.params, this.$route.params);
+                this.getCar(to.params.id);
+            }
+        },
 
-                    if (error.response.status === 404) {
-                        this.$router.push('/cars');
-                    }
-                });
+        mounted() {
+            this.getCar(this.$route.params.id);
         },
 
         data: function () {
@@ -85,7 +80,23 @@
             }
         },
 
+
         methods: {
+            getCar: function(id) {
+                axios.get('/api/cars/' + id)
+                .then(response => {
+                    this.car = response.data.data;
+                    this.makeImageLink();
+                    this.loading = false;
+                })
+                .catch(error => {
+                    this.loading = false;
+
+                    if (error.response.status === 404) {
+                        this.$router.push('/cars');
+                    }
+                });
+            },
             destroy: function () {
                 axios.delete('/api/cars/' + this.$route.params.id)
                     .then(response => {

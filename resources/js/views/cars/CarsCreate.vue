@@ -2,16 +2,16 @@
     <div>
         <form @submit.prevent="submitForm" >
 
-            <InputField type="text" name="name" label="Car Name" :errors="errors"
+            <InputText name="name" label="Car Name" :errors="errors"
             placeholder="Car Name" @update:field="form.name = $event" />
 
-            <InputField type="text" name="colour" label="Car Colour" :errors="errors"
+            <InputSelect name="colour" label="Car Colour" :errors="errors" :options="colours"
             placeholder="Car Colour" @update:field="form.colour = $event" />
 
-            <InputField type="number" name="value" label="Value" :errors="errors"
+            <InputNumber name="value" label="Value" :errors="errors"
             placeholder="£000.00" @update:field="form.value = $event" />
 
-            <input type="file" class="py-4" name="image" label="image" :errors="errors"
+            <inputFile class="py-4" name="image" label="image" :errors="errors"
             @change="onFileSelected" />
 
             <div class="flex justify-end">
@@ -25,13 +25,19 @@
 </template>
 
 <script>
-    import InputField from '../../components/InputField';
+    import InputText from '../../components/inputs/InputText';
+    import InputFile from '../../components/inputs/InputFile';
+    import InputNumber from '../../components/inputs/InputNumber';
+    import InputSelect from '../../components/inputs/InputSelect';
 
     export default {
         name: "CarsCreate",
 
         components: {
-            InputField
+            InputText,
+            InputNumber,
+            InputFile,
+            InputSelect
         },
 
         data: function () {
@@ -43,6 +49,8 @@
                     'value': '',
                 },
                 errors: null,
+                
+
             }
         },
 

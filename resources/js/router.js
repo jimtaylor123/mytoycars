@@ -24,52 +24,19 @@ Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
         // In
-        {
-            path: '/', component: Welcome,
-            meta: { title: 'Welcome' }
-        },
+        {path: '/', component: Welcome, meta: { title: 'Welcome' }},
         // Cars
-        {
-            path: '/cars', component: CarsIndex,
-            meta: { title: 'Car' }
-        },
-        {
-            path: '/cars/create', component: CarsCreate,
-            meta: { title: 'Add New Car' }
-        },
-        {
-            path: '/cars/:id(\\d+)', component: CarsShow,
-            meta: { title: 'Details for Car' }
-        }, {
-            path: '/cars/:id/edit', component: CarsEdit,
-            meta: { title: 'Edit Car' }
-        },
+        {path: '/cars', component: CarsIndex, meta: { title: 'Cars' }},
+        {path: '/cars/create', component: CarsCreate, meta: { title: 'Add New Car' }},
+        {path: '/cars/:id(\\d+)', component: CarsShow, meta: { title: 'View Car' }},
+        {path: '/cars/:id/edit', component: CarsEdit, meta: { title: 'Edit Car' }},
         // Races
-        {
-            path: '/races/create', component: RacesCreate,
-            meta: { title: 'Add New Race' }
-        },
-
-        {
-            path: '/races/:id(\\d+)', component: RacesShow,
-            meta: { title: 'Details for Race' }
-        },
-        {
-            path: '/races/:id(\\d+)/edit', component: RacesEdit,
-            meta: { title: 'Edit Race' }
-        },
-        {
-            path: '/races/past', component: RacesIndex,
-            meta: { title: 'Races' , time: 'past'}
-        },
-        {
-            path: '/races/upcoming', component: RacesIndex,
-            meta: { title: 'Races', time: 'upcoming' }
-        },
+        {path: '/races/create', component: RacesCreate, meta: { title: 'Add New Race' }},
+        {path: '/races/:id(\\d+)', component: RacesShow, meta: { title: 'View Race' }},
+        {path: '/races/:id(\\d+)/edit', component: RacesEdit, meta: { title: 'Edit Race' }},
+        {path: '/races/:time', component: RacesIndex, meta: { title: 'Races'}},
         // Out
-        {
-            path: '/logout', component: Logout
-        }
+        { path: '/logout', component: Logout }
     ],
     mode: 'history'
 });

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Resources\Race as RaceResource;
 use App\Models\Race;
+use App\Http\Requests\RaceRequest;
+use Symfony\Component\HttpFoundation\Response;
 use Carbon\Carbon;
+
 
 class RaceController extends Controller
 {
@@ -30,13 +33,43 @@ class RaceController extends Controller
         return $races;
     }
 
-    public function store()
+    public function show(Race $race)
     {
-        $this->authorize('create', Race::class);
-        $race = (new Race())->create($this->validateData());
+        $this->authorize('view', $race);
+
+        return new RaceResource($race);
+    }
+
+    public function store(RaceRequest $request)
+    {
+
+
+        $race = (new Race());
+        $race->name = $request->name;
+        $race->prize = $request->prize;
+        $race->date = $request->date;
+        $race->location = $request->location["city"];
+        $race->lat = $request->location["latitude"];
+        $race->lng = $request->location["longitude"];
+        $race->save();
 
         return (new RaceResource($race))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
+    }
+
+    public function update(RaceRequest $request, Race $race)
+    {
+        $this->authorize('update', $race);
+
+        $race->update($race->toArray());
+        $race->location = $request->location["city"];
+        $race->lat = $request->location["latitude"];
+        $race->lng = $request->location["longitude"];
+        $race->save();
+
+        return (new RaceResource($race))
+            ->response()
+            ->setStatusCode(Response::HTTP_OK);
     }
 }

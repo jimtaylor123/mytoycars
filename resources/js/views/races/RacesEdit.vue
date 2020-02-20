@@ -7,11 +7,11 @@
         </div>
 
         <form @submit.prevent="submitForm" class="pt-6">
-            <InputField name="name" label="Car Name" :errors="errors"
+            <!-- <InputText name="name" label="Car Name" :errors="errors"
             placeholder="Car Name" @update:field="form.name = $event" :data="form.name" />
-            <InputField name="colour" label="Car Colour" :errors="errors"
+            <InputText name="colour" label="Car Colour" :errors="errors"
             placeholder="Car Colour" @update:field="form.colour = $event" :data="form.colour" />
-            <InputField name="value" label="Value" :errors="errors"
+            <InputText name="value" label="Value" :errors="errors"
             placeholder="MM/DD/YYYY" @update:field="form.value = $event" :data="form.value" />
 
              <div class="pt-2 align-left" v-if="hasImage">
@@ -23,7 +23,19 @@
             <div class="pt-2 align-left" v-else>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                 class="fill-current text-gray-800 w-64 h-64"><path d="M0 4c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm11 9l-3-3-6 6h16l-5-5-2 2zm4-4a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
-            </div>
+            </div> -->
+
+            <InputText type="text" name="name" label="Race Name" :errors="errors"
+            placeholder="Race Name" @update:field="form.name = $event" :data="form.name"/>
+
+            <InputText type="date" name="date" label="Race Date" :errors="errors"
+            placeholder="Race Date" @update:field="form.date = $event" :data="form.date"/>
+
+            <InputText type="number" name="prize" label="Prize" :errors="errors"
+            placeholder="£100.00" @update:field="form.prize = $event" :data="form.prize"/>
+
+            <label for="CitySearch" class="text-blue-500 pt-2 uppercase text-xs font-bold">Location</label>
+            <CitySearch @update:field="form.location = $event" :data="form.location"/>
 
 
             <div class="flex justify-end">
@@ -35,29 +47,29 @@
 </template>
 
 <script>
-    import InputField from '../../components/InputField';
+    import InputText from '../../components/inputs/InputText';
+    import CitySearch from '../../components/inputs/CitySearch';
 
     export default {
-        name: "CarsCreate",
-        data: {
-            imageUrl:null
-        },
+        name: "RacesEdit",
         components: {
-            InputField
+            InputText,
+            CitySearch
         },
 
         mounted() {
-            axios.get('/api/cars/' + this.$route.params.id)
+            axios.get('/api/races/' + this.$route.params.id)
                 .then(response => {
                     this.form = response.data.data;
-                    this.makeImageLink();
+                    this.form.date = this.$moment(this.form.date).format('YYYY-MM-DD');
                     this.loading = false;
                 })
                 .catch(error => {
+                    console.log(error, 'err');
                     this.loading = false;
 
                     if (error.response.status === 404) {
-                        this.$router.push('/cars');
+                        this.$router.push('/races');
                     }
                 });
         },
@@ -66,11 +78,10 @@
             return {
                 form: {
                     'name': '',
-                    'colour': '',
-                    'image': '',
-                    'value': '',
+                    'date': '',
+                    'prize': '',
+                    'location': '',
                 },
-                hasImage: false,
                 errors: null,
                 loading: true,
             }
@@ -78,8 +89,7 @@
 
         methods: {
             submitForm: function () {
-                this.form.image = this.image;
-                axios.patch('/api/cars/' + this.$route.params.id, this.form)
+                axios.patch('/api/races/' + this.$route.params.id, this.form)
                     .then(response => {
                         this.$router.push(response.data.links.self);
                     })
@@ -87,34 +97,6 @@
                         this.errors = errors.response.data.errors;
                     });
             },
-            onFileSelected(e) {
-                console.log(this.imageUrl);
-                console.log(e);
-                let files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createImage(files[0]);
-
-                this.imageUrl = e.target.result;
-            },
-            createImage(file) {
-                let reader = new FileReader();
-                let vm = this;
-                reader.onload = (e) => {
-                    vm.image = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            },
-            makeImageLink: function() {
-                if(
-                    this.form.photoUrl !== null
-                ){
-                    this.imageUrl = "https://mytoycars.s3.eu-west-2.amazonaws.com/" + this.form.photoUrl;
-                    this.hasImage = true;
-                } else {
-                    this.hasImage = false;
-                }
-            }
         }
     }
 </script>

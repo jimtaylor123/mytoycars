@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import UserCircle from './UserCircle';
+    import UserCircle from '../../components/UserCircle';
 
     export default {
         name: "CarsList",

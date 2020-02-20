@@ -1,16 +1,41 @@
 # MY TOY CARS - a simple app for little boys to enjoy their cars
 
-1. Add race
-2. View race
-3. Fix broken search result link
-4. Integrate laravel user/roles package
-5. Add race results as sub element to show race
-6. Order cars in race result by drag and drop
-7. Change colour in create car to multi select
-8. Change race location to use open street map api
-9. Create event when new user subscribes to email me their details
+## Basic forms
+1. Investigate more modular form input components...
+1. Improve race city select - replace list with one that contains country and show country to user
+2. Change colour in create car to colour select
+3. Change some other input to select and/or multi select
+4. Try and incorporate a time/date inht using some vue package
+5.  Add preview of car when uploading a new image to replace an existing one
+6. Check all crud forms 1. work for create/edit/delete 2. validate data properly 3. show validation errors properly
 
+## General
+4. Distinguish login from splash screen
+5. Set up email
 
+## Permissions etc. 
+1. Use form requests for all back end validation - need to do this for car
+2. Create base controller? 
+3. Integrate laravel user/roles package?
+4. Permissions for acting on races - should be admin only... 
+
+## Race results
+9.  Add race results as sub element to show race
+10. Order cars in race result by drag and drop - admin permissions apply
+11. Add race results under each race with option to drag and drop reorder for admin
+12. Add a filterable/clickable list table underneath each car showing races
+
+##  Devops
+13. Fully package for devops using docker, free ssl, github actions, k8s (not swarm) and terraform... 
+14. Deploy for free on heroku
+
+## Polish
+2.  Create event when new user subscribes to email me their details
+3.  Integrate images from unsplash into race view page, eg shanghai for shanghai, using api call
+4.  Incorporate a reports page with a number of charts with exportable .xls/csv/tsv/pdf formats.  
+5.  Have seperate read and write databases ... 
+6.  Try to add other laravel packages = telescope, horizon, socialite... go mad and try and add as much complexity as possible! 
+7.  convert all icons to zondicon vue components
 
 ## Resources I have used
 1. Laravel

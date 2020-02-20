@@ -7,11 +7,11 @@
         </div>
 
         <form @submit.prevent="submitForm" class="pt-6">
-            <InputField name="name" label="Car Name" :errors="errors"
+            <InputText name="name" label="Car Name" :errors="errors"
             placeholder="Car Name" @update:field="form.name = $event" :data="form.name" />
-            <InputField name="colour" label="Car Colour" :errors="errors"
+            <InputSelect name="colour" label="Car Colour" :errors="errors"
             placeholder="Car Colour" @update:field="form.colour = $event" :data="form.colour" />
-            <InputField name="value" label="Value" :errors="errors"
+            <InputNuber name="value" label="Value" :errors="errors"
             placeholder="MM/DD/YYYY" @update:field="form.value = $event" :data="form.value" />
 
              <div class="pt-2 align-left" v-if="hasImage">
@@ -35,15 +35,17 @@
 </template>
 
 <script>
-    import InputField from '../../components/InputField';
+    import InputText from '../../components/inputs/InputText';
+    import InputNumber from '../../components/inputs/InputNumber';
+    import InputSelect from '../../components/inputs/InputSelect';
 
     export default {
-        name: "CarsCreate",
-        data: {
-            imageUrl:null
-        },
+        name: "CarsEdit",
+
         components: {
-            InputField
+            InputText,
+            InputNumber,
+            InputSelect
         },
 
         mounted() {
@@ -73,6 +75,7 @@
                 hasImage: false,
                 errors: null,
                 loading: true,
+                imageUrl:null
             }
         },
 
