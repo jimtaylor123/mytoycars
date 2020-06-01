@@ -1,5 +1,79 @@
 # MY TOY CARS - a simple app for little boys to enjoy their cars
 
+## Set up
+
+1. Clone repo locally
+2. cp .env.example to .env
+3. Create database in your local mysql
+4. run artisan command to create users and cars: 
+
+```bash
+php artisan db:wipe && php artisan migrate && php artisan db:seed
+```
+
+5. For dev, now run npm watch and artisan serve to serve site
+```bash
+npm run watch
+```
+and in another shell
+```bash
+php artisan serve
+```
+## Todo to finish
+
+More car images for variety
+Seeder to randomize images properly
+Create other user cars
+
+CAR CRUD
+index
+create
+view
+edit
+delete
+
+RACE CRUD
+index
+create
+view
+edit
+delete
+
+RACE RESULTS
+index
+create
+view
+edit
+delete
+
+Make sure fuzzy search works well
+
+email when new user created
+
+vuetify? component library?
+
+vuex integration
+
+redis caching
+
+containerize 
+
+ci/cd with github
+
+leaflet map (again!)
+
+widget reports
+    exportable to pdf/excel and/or zipped format
+
+
+
+
+
+
+
+
+
+
 ## Basic forms
 1. Investigate more modular form input components...
 1. Improve race city select - replace list with one that contains country and show country to user

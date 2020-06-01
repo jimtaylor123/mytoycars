@@ -12,6 +12,6 @@ $factory->define(Car::class, function (Faker $faker) {
         'name' => $faker->name,
         'colour' => $faker->colorName,
         'value' => '10.99',
-        'photoUrl' => $faker->url,
+        'photoUrl' => $faker->url
     ];
 });

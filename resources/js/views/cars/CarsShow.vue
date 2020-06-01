@@ -26,7 +26,7 @@
                 <p class="text-6xl">{{ car.name }}</p>
             </div
 
-            <p class="pt-6 text-gray-600 font-bold uppercase text-sm">Car</p>
+            <p class="pt-6 text-gray-600 font-bold uppercase text-sm">Colour</p>
             <p class="pt-2 text-blue-400">{{ car.colour }}</p>
 
             <p class="pt-6 text-gray-600 font-bold uppercase text-sm">Owner</p>
@@ -76,7 +76,8 @@
                 modal: false,
                 car: null,
                 imageUrl: null,
-                hasImage: false
+                hasImage: false,
+                s3url: process.env.MIX_S3_URL
             }
         },
 
@@ -110,7 +111,7 @@
                 if(
                     this.car.photoUrl !== null
                 ){
-                    this.imageUrl = "https://mytoycars.s3.eu-west-2.amazonaws.com/" + this.car.photoUrl;
+                    this.imageUrl = this.s3url + this.car.photoUrl;
                     this.hasImage = true;
                 } else {
                     this.hasImage = false;

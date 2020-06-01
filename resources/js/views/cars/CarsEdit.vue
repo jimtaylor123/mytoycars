@@ -75,7 +75,8 @@
                 hasImage: false,
                 errors: null,
                 loading: true,
-                imageUrl:null
+                imageUrl:null,
+                s3url: process.env.MIX_S3_URL
             }
         },
 
@@ -112,7 +113,7 @@
                 if(
                     this.form.photoUrl !== null
                 ){
-                    this.imageUrl = "https://mytoycars.s3.eu-west-2.amazonaws.com/" + this.form.photoUrl;
+                    this.imageUrl = this.s3url + this.form.photoUrl;
                     this.hasImage = true;
                 } else {
                     this.hasImage = false;

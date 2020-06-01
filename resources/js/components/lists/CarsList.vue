@@ -8,7 +8,7 @@
 
             <div v-for="car in cars" v-bind:key="car.data.car_id">
                 <router-link :to="'/cars/' + car.data.car_id" class="flex items-center border-b border-gray-400 p-4 hover:bg-gray-100">
-                    <img class="w-16 h-16 object-contain rounded-full mr-4" :src="'https://mytoycars.s3.eu-west-2.amazonaws.com/'+car.data.photoUrl">
+                    <img class="w-16 h-16 object-contain rounded-full mr-4" :src="s3url+car.data.photoUrl">
                     <div class="pl-4">
                         <p class="text-blue-400 font-bold">{{ car.data.name }}</p>
                         <p class="text-gray-600">{{ car.data.colour }}</p>
@@ -51,6 +51,7 @@
             return {
                 loading: true,
                 cars: null,
+                s3url: process.env.MIX_S3_URL
             }
         }
     }

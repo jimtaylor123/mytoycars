@@ -4,13 +4,13 @@
 <div class="mx-auto h-full flex justify-center items-center bg-gray-300">
     <div class="w-96 bg-blue-900 rounded-lg shadow-xl p-6">
 
-        <h1 class="text-white text-3xl pb-4 text-center font-black">MY TOY CARS</h1>
-        <div>
-            <img src="{{URL::asset('/img/redcar.png')}}" alt="fast red car" class="object-cover h-32 w-full">
-        </div> 
-        
+        <h1 class="text-white text-3xl text-center font-black">MY TOY CARS</h1>
+        <div class="flex justify-center -my-10">
+            <img src="{{URL::asset('/img/redcar.png')}}" alt="fast red car" class="object-cover h-48">
+        </div>
 
-        <h1 class="text-white text-3xl pt-8 text-center">Welcome Back</h1>
+
+        <h1 class="text-white text-3xl text-center">Welcome Back</h1>
         <h2 class="text-blue-300 text-center">Enter your credentials below</h2>
 
         <form method="POST" action="{{ route('login') }}" class="pt-8">
