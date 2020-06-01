@@ -1,5 +1,7 @@
 # Todo to finish
 
+## FIRST WEEK JUNE
+
 More car images for variety
 Seeder to randomize images properly
 Create other user cars
@@ -7,6 +9,8 @@ Create other user cars
 switch to vuex
 
 ----------------------
+
+## SECOND WEEK JUNE
 
 CAR CRUD
 index
@@ -30,12 +34,15 @@ edit
 delete
 
 ----------------------
+
 leaflet map (again!)
 
 widget reports
     exportable to pdf/excel and/or zipped format
 
 ----------------------
+
+## THIRD WEEK JUNE
 
 Issues in previous list below
 
@@ -51,11 +58,11 @@ redis caching
 
 ----------------------
 
+## LAST WEEK JUNE
+
 containerize for prod and dev (including mysql)
 
 ci/cd with github
-
-
 
 # Previous list
 
